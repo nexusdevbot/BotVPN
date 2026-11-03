@@ -2,7 +2,7 @@
 # ============================================================
 #  BotVPN NEXUSDEV — AUTO INSTALLER (1 command)
 #  Jalankan sebagai root di VPS Linux x86_64.
-#  Butuh env GH_TOKEN = token GitHub (repo private).
+#  Repo publik — tanpa token. (Opsional GH_TOKEN utk mirror private.)
 # ============================================================
 set -u
 
@@ -18,16 +18,16 @@ logo
 BOTDIR="/root/BotVPN"
 
 # ---------- 1. ambil kode repo ----------
-if [ -z "${GH_TOKEN:-}" ]; then
-  echo -e "${RED}Env GH_TOKEN kosong. Export dulu:${NE}"
-  echo    '  export GH_TOKEN="token github-mu"'
-  exit 1
-fi
 echo -e "${YELLOW}[1/6] Mengunduh kode BotVPN...${NE}"
 rm -rf "$BOTDIR" && mkdir -p "$BOTDIR"
-curl -sL -H "Authorization: token ${GH_TOKEN}" \
-  "https://api.github.com/repos/nexusdevbot/BotVPN/tarball/main" \
-  | tar xz --strip-components=1 -C "$BOTDIR"
+if [ -n "${GH_TOKEN:-}" ]; then
+  curl -sL -H "Authorization: token ${GH_TOKEN}" \
+    "https://api.github.com/repos/nexusdevbot/BotVPN/tarball/main" \
+    | tar xz --strip-components=1 -C "$BOTDIR"
+else
+  curl -sL "https://codeload.github.com/nexusdevbot/BotVPN/tar.gz/refs/heads/main" \
+    | tar xz --strip-components=1 -C "$BOTDIR"
+fi
 [ -f "$BOTDIR/app.js" ] || { echo -e "${RED}Gagal unduh. Cek GH_TOKEN.${NE}"; exit 1; }
 
 # ---------- 2. node 20 ----------

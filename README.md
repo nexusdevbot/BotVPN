@@ -23,13 +23,11 @@ Base FighterTunnel yang sudah dirombak total sesuai standar NEXUSDEV.
 
 ## 🚀 AUTO INSTALLER (1 command)
 
-**Syarat:** token GitHub (repo private) + sebagai **root**.
+**Syarat:** akses root di VPS. Repo publik — tanpa token GitHub.
 
 ```bash
-export GH_TOKEN="token_github_mu"
 BOT_TOKEN="9277...:AAG..." ADMIN_ID="123456789" PAY_KEY="key_payotomatis" \
-  bash <(curl -sL -H "Authorization: token $GH_TOKEN" \
-        https://raw.githubusercontent.com/nexusdevbot/BotVPN/main/install.sh)
+  bash <(curl -sL https://raw.githubusercontent.com/nexusdevbot/BotVPN/main/install.sh)
 ```
 
 Kalau env-nya tidak diisi, installer akan **bertanya interaktif** (token bot, ID admin, key payotomatis).
