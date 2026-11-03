@@ -1,0 +1,4 @@
+node_modules/
+sellvpn.db
+logs/
+.vars.json
